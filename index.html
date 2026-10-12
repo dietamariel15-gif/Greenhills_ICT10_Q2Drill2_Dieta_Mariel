@@ -1,0 +1,307 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Theater Club | Candidate Verification</title>
+
+    <link rel="stylesheet" href="https://pyscript.net/releases/2026.7.3/core.css" />
+    <script type="module" src="https://pyscript.net/releases/2026.7.3/core.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #5c193c, #a63f70, #e9a4bf);
+            font-family: 'DM Sans', sans-serif;
+            color: #713d55;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 35px 15px;
+            box-sizing: border-box;
+        }
+
+        /* Theater stage */
+
+        .stage {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            padding: 55px 25px;
+            background: #701f49;
+            border: 5px solid #e7ba78;
+            border-radius: 150px 150px 25px 25px;
+            box-shadow: 0 20px 60px #3d102c;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        /* Pink velvet curtains */
+
+        .curtain-left {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 20%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                90deg,
+                #8e2855,
+                #d45b8e 15px,
+                #9f315e 30px
+            );
+            border-radius: 0 0 60px 0;
+            box-shadow: 8px 0 20px #4c1234;
+        }
+
+        .curtain-right {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 20%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                90deg,
+                #9f315e,
+                #d45b8e 15px,
+                #8e2855 30px
+            );
+            border-radius: 0 0 0 60px;
+            box-shadow: -8px 0 20px #4c1234;
+        }
+
+        /* Main verification card */
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 420px;
+            margin: auto;
+            background: #fff7f1;
+            padding: 35px;
+            border-radius: 15px;
+            border: 2px solid #e7ba78;
+            box-shadow: 0 15px 35px #3b102a;
+            text-align: center;
+        }
+
+        .masks {
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #f7d8e5;
+            color: #a63f70;
+            padding: 7px 16px;
+            border-radius: 30px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            color: #84284f;
+            margin: 10px 0;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: #b57958;
+            font-size: 15px;
+            margin-bottom: 25px;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px dashed #d6a5a4;
+            margin: 25px 0;
+        }
+
+        .instruction {
+            font-size: 13px;
+            color: #997487;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        /* Input fields */
+
+        label {
+            display: block;
+            text-align: left;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #a0446e;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 20px;
+            border: 1px solid #e5b9c8;
+            border-radius: 7px;
+            background: #fff;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            color: #713d55;
+            box-sizing: border-box;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #c34c80;
+            box-shadow: 0 0 0 3px #f9dce8;
+        }
+
+        /* Verification button */
+
+        input[type="button"] {
+            width: 100%;
+            padding: 15px;
+            background: #a63f70;
+            color: #fff7f1;
+            border: 2px solid #dca76c;
+            border-radius: 7px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        input[type="button"]:hover {
+            background: #78264f;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px #d9a1b8;
+        }
+
+        /* Result area */
+
+        #div1 {
+            margin-top: 25px;
+            padding: 20px;
+            background: #fbe5ed;
+            border: 1px dashed #c47d9d;
+            border-radius: 8px;
+            color: #84284f;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.8;
+            min-height: 25px;
+        }
+
+        .footer {
+            margin-top: 25px;
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: #a77b8b;
+        }
+
+        .stars {
+            color: #d5a05f;
+            font-size: 20px;
+            letter-spacing: 12px;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 500px) {
+
+            .stage {
+                padding: 35px 12px;
+                border-radius: 90px 90px 20px 20px;
+            }
+
+            .container {
+                padding: 25px 20px;
+            }
+
+            h1 {
+                font-size: 34px;
+            }
+
+            .curtain-left,
+            .curtain-right {
+                width: 12%;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="stage">
+
+        <div class="curtain-left"></div>
+        <div class="curtain-right"></div>
+
+        <div class="container">
+
+            <div class="stars">✦ ✦ ✦</div>
+
+            <div class="masks">🎭</div>
+
+            <span class="tag">WELCOME TO THE STAGE</span>
+
+            <h1>Theater Club</h1>
+
+            <div class="subtitle">
+                Where Every Name Has a Story
+            </div>
+
+            <hr class="divider">
+
+            <p class="instruction">
+                The spotlight is on you! Enter your name below
+                to find out if you are officially part of
+                our Theater Club.
+            </p>
+
+            <form>
+
+                <label for="fname">First Name</label>
+                <input type="text" id="fname" placeholder="Enter your first name"><br>
+
+                <label for="lname">Last Name</label>
+                <input type="text" id="lname" placeholder="Enter your last name"><br>
+
+                <input type="button" py-click="get_name" value="✦ VERIFY MEMBERSHIP ✦">
+
+            </form>
+
+            <div id="div1">
+                Your verification result will appear here.
+            </div>
+
+            <hr class="divider">
+
+            <div class="footer">
+                THEATER CLUB • CANDIDATE VERIFICATION
+                <p>ICT 10 | Q2 DRILL 2</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <py-script src="main.py"></py-script>
+
+</body>
+</html>
